@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geek City Bank</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="js/chart.js"></script>
+</head>
+<body>
+    <main>
+        <div class="enter-phone-container">
+            <div class="des">
+                <h2>Geek City Bank</h2>
+                <h3>Good <span id="timeGreeting"></span></h3>
+                <h5>Enter your phone number to continue</h5>
+            </div>
+            <div class="display-container" id="display"></div>
+            <div class="keypad">
+                <div class="key" onclick="appendToDisplay('1')">1</div>
+                <div class="key" onclick="appendToDisplay('2')">2</div>
+                <div class="key" onclick="appendToDisplay('3')">3</div>
+                <div class="key" onclick="appendToDisplay('4')">4</div>
+                <div class="key" onclick="appendToDisplay('5')">5</div>
+                <div class="key" onclick="appendToDisplay('6')">6</div>
+                <div class="key" onclick="appendToDisplay('7')">7</div>
+                <div class="key" onclick="appendToDisplay('8')">8</div>
+                <div class="key" onclick="appendToDisplay('9')">9</div>
+                <div class="key delete-key" onclick="deleteLast()">Delete</div>
+                <div class="key" onclick="appendToDisplay('0')">0</div>
+                <div class="key enter-key" onclick="checkPhoneNumber()">Enter</div>
+            </div>
+        </div>
+        <div class="profile-container" style="display: none;">
+            <div class="bank-title">
+                <img src="img/bank-logo.png" alt="">
+                <h2>Geek City Bank</h2>
+            </div>
+            <hr>
+            <div class="profile-picture">
+                <img src="img/pp.png" alt="" id="profilePicture">
+            </div>
+            <div>Customer Name: <span id="custName"></span></div>
+            <div>Nationality: <span id="nationality"></span></div>
+            <div>Phone Number: <span id="phoneNumber"></span></div>
+            
+            <div class="account-balances">
+                <br>
+                <h3>Account Balances</h3>
+                <p>Local Account</p>
+                <h4>Account Balance</h4>
+                <p>Ksh.<span id="accBalance"></span></p>
+                <h4>Credit Balance</h4>
+                <p>Ksh.<span id="creditBal"></span></p>
+                <canvas id="expenseGraph" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="left-fixed" style="display: none;">
+            <div class="bank-title">
+                <img src="img/bank-logo.png" alt="" >
+                <h3>Transactions</h3>
+            </div>
+            <ul>
+                <li onclick="depositCash()">Deposit Cash</li>
+                <li onclick="transferFunds()">Transfer Funds</li>
+                <li onclick="applyForCard()">Apply for Card </li>
+                <li onclick="manageAccount()">Manage Account</li>
+            </ul>
+        </div>
+        <div class="right-fixed" style="display: none;">
+            <div class="bank-title">
+                <img src="img/bank-logo.png" alt="">
+                <h3>Loands & Funds</h3>
+            </div>
+            <ul>
+                <li>Apply for Loan</li>
+                <li>Pay Loan</li>
+                <li>View Loan limit & Fees </li>
+                <li>Terms & Conditions</li>
+            </ul>
+        </div>
+        <div class="profile-container-transactions" id="depositContainer">
+            <h3 id="transaction">Transaction</h3>
+            <hr>
+
+            <div class="deposit-cash">
+                <h4>Deposit Cash</h4>
+                <br>
+                <form action="" class="form-group">
+                    <label for="depositAmount">Enter Deposit Amount</label>
+                    <input type="number" class="form-control" id="depositAmount">
+                    <br>
+                    <!-- Buttons for deposit amounts -->
+                    <div class="btn-group" role="group" aria-label="Deposit Amount Buttons">
+                        <button type="button" class="btn btn-primary" onclick="setDepositAmount(100)">+100</button>
+                        <button type="button" class="btn btn-primary" onclick="setDepositAmount(500)">+500</button>
+                        <button type="button" class="btn btn-primary" onclick="setDepositAmount(1000)">+1000</button>
+                        <button type="button" class="btn btn-primary" onclick="setDepositAmount(5000)">+5000</button>
+                    </div>
+                    <br><br>
+                    <!-- Button for deposit cash -->
+                    <button type="button" class="btn btn-success" onclick="depositCashTransaction()">Deposit Cash</button>
+                </form>
+            </div>
+            <hr>
+            <div class="deposit-receipt" style="display: none;">
+                <h4>Deposit Receipt</h4>
+                <p>Customer Name: <span id="custNameReceipt"></span></p>
+                <p>Phone Number: <span id="phoneNumberReceipt"></span></p>
+                <p>Deposit Amount: Ksh.<span id="receiptDepositAmount"></span></p>
+                <p>Transaction Code: <span id="transactionCode"></span></p>
+                <br>
+                <button onclick="goBack()">Back</button>
+            </div>
+        </div>
+        <div class="profile-container-transactions" id="transferContainer">
+            <h3 id="transaction">Transaction</h3>
+            <hr>
+
+            <div class="deposit-cash">
+                <h4>Transfer Funds</h4>
+                <br>
+                <form action="" class="form-group">
+                    <label for="receiverPhone">Receiver Phone Number</label>
+                    <input type="number" class="form-control" id="receiverPhone">
+                    <label for="transferAmount">Enter Amount</label>
+                    <input type="number" class="form-control" id="transferAmount">
+                    <br>
+                    
+                    <button type="button" class="btn btn-success" onclick="transferFundsTransaction()">Transfer Fund</button>
+                </form>
+            </div>
+            <hr>
+            <div class="transfer-receipt" style="display: none;">
+                <h4>Transfer Receipt</h4>
+                <p>Customer Name: <span id="custNameReceipt"></span></p> 
+                <p>Phone Number: <span id="phoneNumberReceipt"></span></p>
+                <p>Receiver Phone: <span id="receiverPhoneReceipt"></span></p>
+                <p>Transfer Amount: Ksh.<span id="receiptTransferAmount"></span></p>
+                <p>Transaction Code: <span id="transactionCode"></span></p>
+                <br>
+                <button onclick="goBackTransfer()">Back</button>
+            </div>
+        </div>
+        <div class="right-controls">
+            <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+        </div>        
+        <div class="left-controls">
+            <a href="play_and_win.html"><i class="fas fa-gamepad"></i> Play and Win</a>
+        </div>        
+        <div class="transaction-alert" id="alertBox">
+            <i class="fas fa-check-circle"></i>
+            Transaction Successful
+        </div>
+        
+    </main>
+    
+
+    <script>
+        const users = [
+            {
+                "Customer Name": "John Doe",
+                "Nationality": "USA",
+                "Account Balance": 15070,
+                "Credit Balance": 2000,
+                "Monthly Expenses": [1840, 1950, 2000, 475, 2200, 2300, 2400, 2500, 2600, 274, 2800, 3800],
+                "Profile Picture": "img/John Doe.png"
+            },
+            {
+                "Customer Name": "Jane Smith",
+                "Nationality": "Canada",
+                "Account Balance": 70080,
+                "Credit Balance": 1500,
+                "Monthly Expenses": [2000, 2100, 2200, 5700, 2400, 2500, 870, 2700, 2800, 3030, 2900, 405],
+                "Profile Picture": "img/jane.jpg"
+            },
+            {
+                "Customer Name": "Alice Johnson",
+                "Nationality": "UK",
+                "Account Balance": 16000,
+                "Credit Balance": 1800,
+                "Monthly Expenses": [1990, 2000, 2100, 283, 2300, 2400, 2500, 2600, 2700, 2800, 4800, 1800],
+                "Profile Picture": "img/alice.jpg"
+            },
+            {
+                "Customer Name": "Bob Brown",
+                "Nationality": "Australia",
+                "Account Balance": 5500,
+                "Credit Balance": 2500,
+                "Monthly Expenses": [2100, 2200, 2300, 875, 1200, 1100, 1600, 2400, 2900, 2000, 1950, 2000],
+                "Profile Picture": "img/bob.jpg"
+            },
+            {
+                "Customer Name": "Emma Wilson",
+                "Nationality": "New Zealand",
+                "Account Balance": 16500,
+                "Credit Balance": 17002,
+                "Monthly Expenses": [2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 2100, 1650, 2000, 2100],
+                "Profile Picture": "img/emma.jpg"
+            }
+        ];
+
+        function appendToDisplay(number) {
+            document.getElementById('display').textContent += number;
+        }
+
+        function deleteLast() {
+            var displayContent = document.getElementById('display').textContent;
+            document.getElementById('display').textContent = displayContent.slice(0, -1);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key >= '0' && event.key <= '9') {
+                appendToDisplay(event.key);
+            } else if (event.key === 'Backspace') { 
+                deleteLast();
+            } else if (event.key === 'Enter') {
+                checkPhoneNumber();
+            }
+        });
+
+
+        var selectedUser = null;
+        
+        function checkPhoneNumber() {
+            var phoneNumber = document.getElementById('display').textContent;
+            var leftFixed = document.querySelector(".left-fixed");
+            var rightFixed = document.querySelector(".right-fixed");
+            if (phoneNumber.length === 10) {
+                var randomIndex = Math.floor(Math.random() * users.length);
+                selectedUser = users[randomIndex];
+                document.getElementById('custName').textContent = selectedUser["Customer Name"];
+                document.getElementById('nationality').textContent = selectedUser["Nationality"];
+                document.getElementById('phoneNumber').textContent = phoneNumber;
+                document.getElementById('profilePicture').src = selectedUser["Profile Picture"];
+                document.getElementById('accBalance').textContent = selectedUser["Account Balance"];
+                document.getElementById('creditBal').textContent = selectedUser["Credit Balance"];
+                generateExpenseGraph(selectedUser["Monthly Expenses"]);
+                document.querySelector('.enter-phone-container').style.display = 'none';
+                document.querySelector('.profile-container').style.display = 'block';  
+                leftFixed.style.display = "block";
+                rightFixed.style.display = "block";
+            } else {
+                alert("Please enter a valid phone number.");
+            }
+        }
+
+        function generateExpenseGraph(expenses) {
+            var ctx = document.getElementById('expenseGraph').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                        label: 'Monthly Expenses',
+                        data: expenses,
+                        borderColor: 'blue',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function getTimeGreeting() {
+            const currentTime = new Date().getHours();
+            let greeting;
+
+            if (currentTime >= 5 && currentTime < 12) {
+                greeting = "Morning";
+            } else if (currentTime >= 12 && currentTime < 18) {
+                greeting = "Afternoon";
+            } else {
+                greeting = "Evening";
+            }
+
+            return greeting;
+        }
+
+        function updateGreeting() {
+            const timeGreetingElement = document.getElementById('timeGreeting');
+            const timeGreeting = getTimeGreeting();
+            timeGreetingElement.textContent = timeGreeting;
+        }
+        updateGreeting();
+        setInterval(updateGreeting, 60000);
+
+        const transaction = document.getElementById("transaction");
+
+        function depositCash() {
+            document.querySelector('.profile-container').style.display = 'none';
+            document.querySelector('#depositContainer').style.display = 'flex';
+            transaction.innerHTML = "Deposit Cash";
+        }
+        function transferFunds() {
+            document.querySelector('.profile-container').style.display = 'none';
+            document.querySelector('#transferContainer').style.display = 'flex';
+            transaction.innerHTML = "Transfer Funds";
+        }
+
+
+
+
+
+        
+    </script>
+    <script>
+        function setDepositAmount(amount) {
+            document.getElementById('depositAmount').value = amount;
+        }
+    
+        function generateTransactionCode(phone_number, depositAmount) {
+            var phone_number_str = String(phone_number);
+            return phone_number_str.slice(-4) + depositAmount + Math.floor(Math.random() * 1000);
+        }
+
+    
+        function depositCashTransaction() {
+            var depositAmount = parseFloat(document.getElementById('depositAmount').value);
+
+            if (depositAmount > 0 && selectedUser !== null) {
+                selectedUser["Account Balance"] += depositAmount;
+
+                var transactionCode = generateTransactionCode(selectedUser["Phone Number"], depositAmount);
+
+                document.getElementById('receiptDepositAmount').textContent = depositAmount;
+                document.getElementById('transactionCode').textContent = transactionCode;
+                document.getElementById('custNameReceipt').textContent = selectedUser["Customer Name"];
+                document.getElementById('phoneNumberReceipt').textContent = selectedUser["Phone Number"];
+
+                document.getElementById('accBalance').textContent = selectedUser["Account Balance"];
+
+                var alertBox = document.getElementById('alertBox');
+                alertBox.innerHTML = '<i class="fas fa-check-circle"></i> Transaction Successful';
+                alertBox.style.color = 'green';
+                alertBox.style.display = 'block';
+
+                setTimeout(function() {
+                    alertBox.style.display = 'none';
+
+                    document.querySelector('.deposit-cash').style.display = 'none';
+                    document.querySelector('.deposit-receipt').style.display = 'block';
+                }, 2500);
+            } else {
+                var alertBox = document.getElementById('alertBox');
+                alertBox.innerHTML = '<i class="fas fa-times-circle"></i> Transaction Failed';
+                alertBox.style.color = 'red';
+                alertBox.style.display = 'block';
+                
+                setTimeout(function() {
+                    alertBox.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        function goBack() {
+            document.querySelector('.profile-container-transactions').style.display = 'none';
+            document.querySelector('.profile-container').style.display = 'block';
+        }
+        
+    </script>
+    <script>
+        function transferFundsTransaction() {
+            var receiverPhone = document.getElementById('receiverPhone').value;
+            var transferAmount = parseFloat(document.getElementById('transferAmount').value);
+            
+            if (!receiverPhone) {
+                displayErrorMessage('Failed. Enter the receiver phone number');
+                return;
+            }
+
+            if (!transferAmount) {
+                displayErrorMessage('Failed. Please enter Amount');
+                return;
+            }
+
+            if (transferAmount > 0 && selectedUser !== null) {
+                if (transferAmount > selectedUser["Account Balance"]) {
+                    displayErrorMessage('Failed. Insufficient Balance');
+                    return;
+                }
+
+                selectedUser["Account Balance"] -= transferAmount;
+
+                var transactionCode = generateTransactionCode(selectedUser["Phone Number"], transferAmount);
+
+                document.getElementById('custNameReceipt').textContent = selectedUser["Customer Name"];
+                document.getElementById('phoneNumberReceipt').textContent = selectedUser["Phone Number"];
+                document.getElementById('receiverPhoneReceipt').textContent = receiverPhone;
+                document.getElementById('receiptTransferAmount').textContent = transferAmount;
+                document.getElementById('transactionCode').textContent = transactionCode;
+
+                document.getElementById('accBalance').textContent = selectedUser["Account Balance"];
+                var alertBox = document.getElementById('alertBox');
+                alertBox.innerHTML = '<i class="fas fa-check-circle"></i> Transaction Successful';
+                alertBox.style.color = 'green';
+                alertBox.style.display = 'block';
+
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+
+                    document.querySelector('.deposit-cash').style.display = 'none';
+                    document.querySelector('.transfer-receipt').style.display = 'block';
+                }, 2600);
+
+            } else {
+                displayErrorMessage('Failed. Transaction Failed');
+            }
+        }
+
+        function displayErrorMessage(message) {
+            var alertBox = document.getElementById('alertBox');
+            alertBox.innerHTML = '<i class="fas fa-times-circle"></i> ' + message;
+            alertBox.style.color = 'red';
+            alertBox.style.display = 'block';
+
+            setTimeout(function() {
+                alertBox.style.display = 'none';
+            }, 2000);
+        }
+
+
+        function goBackTransfer() {
+            document.querySelector('#transferContainer').style.display = 'none';
+            document.querySelector('.profile-container').style.display = 'block';
+        }
+    </script>
+    
+    
+    
+</body>
+</html>

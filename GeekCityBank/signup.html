@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geek City Bank</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="js/script.css"></script>
+</head>
+<body>
+    <div class="bank-start">
+      <div class="geek-logo">
+        <img src="img/bank-logo.png" alt="geek-logo">
+      </div>
+        <div class="bank-login">
+            <h2>Create Account</h2>
+            <form id="signupForm">
+                <label for="fullname">Full name</label>
+                <input type="text" id="fullname">
+                <label for="email">Email Address</label>
+                <input type="email" id="email">
+                <label for="phone">Phone Number</label>
+                <input type="number" id="phone">
+                <label class="checkbox-container">I accept the terms and conditions
+                  <input type="checkbox" id="terms">
+                  <span class="checkmark"></span>
+                </label>
+                <button onclick="submitForm()">Sign up</button>
+            </form>
+            <script>
+              function submitForm() {
+                  var fullname = document.getElementById("fullname").value;
+                  var email = document.getElementById("email").value;
+                  var phone = document.getElementById("phone").value;
+                  var termsChecked = document.getElementById("terms");
+          
+                  if (email == "" || fullname == "" || phone == "") {
+                      alert("Please enter all details and accept terms and conditions");
+                      return;
+                  }
+          
+                  var formData = new FormData();
+                  formData.append("fullname", fullname);
+                  formData.append("email", email);
+                  formData.append("phone", phone);
+          
+                  var xhr = new XMLHttpRequest();
+          
+                  xhr.onload = function() {
+                      if (xhr.status == 200) {
+                          alert(xhr.responseText); 
+                          window.location = "home.html";
+                      }
+                  };
+          
+                  xhr.onerror = function() {
+                      alert("Error submitting form data. Please try again later.");
+                  };
+          
+                  xhr.open("POST", "php/signup_process.php");
+                  xhr.send(formData);
+              }
+            </script>
+          
+        </div>
+    </div>
+    <script>
+        function redirect() {
+          window.location.href = "home.html";
+        }
+      
+        function getStarted() {
+          document.querySelector('.loading-container').style.display = 'block';
+          
+          const timeout = Math.floor(Math.random() * 6 + 10) * 1000;
+          setTimeout(redirect, timeout);
+        }
+      </script>
+      
+      
+</body>
+</html>

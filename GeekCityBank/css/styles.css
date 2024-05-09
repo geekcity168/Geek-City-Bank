@@ -1,0 +1,595 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+main {
+    display: flex !important;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-container {
+    margin-top: 86px;
+    margin-left: 210px;
+ 
+}
+
+
+.loader {
+    border: 4px solid #f3f3f3; 
+    border-top: 4px solid #690926; 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; 
+}
+
+
+p {
+    margin-top: 20px;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bank-start {
+    background-color: crimson;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.bank-description {
+    margin-top: 100px;
+}
+
+.bank-description p {
+    color: #fff;
+}
+h1 {
+    text-align: center;
+}
+
+.start-button {
+    margin-top: 100px;
+    padding: 10px;
+    font-size: large;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(114, 13, 33);
+    color: #fff;
+    margin-left: 170px;
+    cursor: pointer;
+}
+.enter-phone-container {
+    height: 600px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+    background-color: #314052;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 70%;
+  }
+ 
+  .key {
+    padding: 10px;
+    font-size: 26px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #91b8f3;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: background-color 0.3s  ease;
+  }
+
+  
+  .des h2{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  .des h3{
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #f1dcb4;
+  }
+
+  .des h5 {
+    color: rgb(158, 231, 158);
+    font-weight: lighter;
+  }
+  .delete-key {
+    background-color: #ff3333; 
+    border-radius: 0 10px 0 35px; 
+    color: #f3f3f3;
+  }
+  .enter-key {
+    background-color: #0c0fa7;
+    border-radius: 10px 0 35px 0;
+    color: #f3f3f3;
+  }
+
+  .display-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 24px;
+    width: 200px;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    color: #c2daf5;
+  }
+
+
+  .profile-container {
+    width: 450px;
+    padding: 26px;
+    background-color: #9fc7f5;
+  }
+
+  .bank-title {
+    height: 50px;
+    display: flex;
+     
+  }
+
+  .bank-title img {
+    height: 100%;
+    margin-right: 10px;
+    margin-left: 34px;
+  }
+
+  .bank-title h2 {
+    font-size: 30px;
+    font-family: Copperplate, sans-serif;
+    margin-top: 10px;
+    color: #b8791b;
+  }
+
+  .profile-picture {
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+  .profile-picture img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+  .bank-title h3 {
+    font-size: 26px;
+    font-family: Copperplate, sans-serif;
+    margin-top: 14px;
+    margin-left: -8px;
+    color: #ebb057;
+    letter-spacing: -1px;
+  }
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .profile-container div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .profile-container div span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0b2e4b;
+
+  }
+
+  .account-balances {
+    height: 320px;
+    width: 100%;
+    margin-top: 16px;
+    background-color: #e1ebf7;
+    margin-left: -6px;
+    border-radius: 18px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 10px; 
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+
+  .account-balances h3 {
+    margin-bottom: 0px;
+  }
+
+  .account-balances::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .account-balances::-webkit-scrollbar-thumb {
+    background-color: #3498db; 
+    border-radius: 6px; 
+  }
+
+  #expenseGraph {
+    height: 200px;
+    width: 100%;
+    background-color: #fff;
+  }
+
+  .left-fixed {
+    width: 320px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    background-color: #0c61a7;
+    position: fixed;
+    text-align: center;
+    left: 0;
+    top: 100px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .left-fixed li {
+    list-style-type: none;
+    padding: 16px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .left-fixed ul {
+    margin-top: 26px;
+  }
+
+  .left-fixed li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .right-fixed {
+    width: 320px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    padding-left: 34px;
+    background-color: #0c61a7;
+    position: fixed;
+    text-align: center;
+    right: 0;
+    top: 100px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .right-fixed li {
+    list-style-type: none;
+    padding: 16px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .right-fixed ul {
+    margin-top: 26px;
+  }
+
+  .right-fixed li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .profile-container-transactions {
+    height: 600px;
+    width: 450px;
+    padding: 26px;
+    background-color: #9fc7f5;
+    display: flex;
+    flex-direction: column;
+    display: none;
+    overflow-y: auto;
+  }
+
+  .profile-container-transactions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .profile-container-transactions h3 {
+    color: #b8791b;
+  }
+
+  .deposit-receipt button {
+    padding: 10px;
+    outline: none;
+    border-radius: 6px;
+    border: none;
+  }
+
+  .transfer-receipt button {
+    padding: 10px;
+    outline: none;
+    border-radius: 6px;
+    border: none;
+  }
+
+ main {
+    position: relative;
+    background-image: url('../img/bank-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.right-controls {
+  position: fixed;
+  right: 8px;
+  bottom: 10px;
+  background-color: #c2daf5;
+  padding: 20px;
+  border-radius: 8px;
+
+}
+
+.right-controls a {
+  display: flex;
+  vertical-align: middle;
+
+}
+
+.right-controls a i {
+  margin-right: 6px;
+  margin-top: 4px;
+}
+.left-controls {
+  position: fixed;
+  left: 8px;
+  bottom: 10px;
+  background-color: #c2daf5;
+  padding: 20px;
+  border-radius: 8px;
+
+}
+
+.left-controls a {
+  display: flex;
+
+}
+
+.left-controls a i {
+  margin-right: 6px;
+  margin-top: 4px;
+}
+
+main .container {
+  color: #333;
+  padding: 26px;
+  background-color: #fff;
+  text-align: justify;
+  border-radius: 10px;
+}
+
+main .container h1 {
+  font-size: 28px;
+}
+
+.col-md-6 h2 {
+  font-size: 24px;
+}
+
+.col-md-12 h2 {
+  font-size: 24px;
+}
+
+.navbar .container a img {
+  height: 45px;
+}
+
+.container .game-play {
+  height: 90%;
+  width: 90%;
+}
+
+
+.title-container {
+  height: 400px !important;
+  width: 350px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.play-container {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 20px;
+}
+
+.display-controls {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 40px;
+}
+
+.display-controls button {
+  display: inline-block;
+  margin-bottom: 10px;
+  background-color: #d32b47;
+}
+canvas {
+  margin-top: 20px;
+  border-radius: 18px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.transaction-alert {
+  padding: 10px;
+  background-color: #dde4ec;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  border-radius: 6px;
+  color: green;
+  display: none;
+}
+.transaction-alert i {
+  margin-right: 0px;
+}
+
+.account input  {
+  border: none;
+  font-size: 24px;
+  width: 100px;
+  font-family: "Forte";
+}
+
+.account span {
+  color: green;
+}
+
+.aviator-account input  {
+  border: none;
+  font-size: 20px;
+  width: 80px;
+  font-family: "Forte";
+  text-align: c;
+}
+
+.aviator-account span {
+  color: green;
+}
+
+.bank-login {
+  padding: 25px;
+  border: solid #fff 1px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.bank-login input{
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  display: list-item;
+  list-style-type: none;
+  width: 96%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.bank-login input:focus {
+  border: #0c61a7 solid 1px;
+  outline: none;
+}
+.bank-login label {
+
+  font-size: 16px;
+}
+
+.bank-login h2 {
+  text-align: center;
+  color: #fff;
+  margin: 10px auto;
+}
+
+.geek-logo {
+  height: 100px;
+}
+
+.geek-logo img {
+  height: 100%;
+}
+
+.bank-login button {
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  width: 96%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+/* On hover, change background color */
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When checkbox is checked, change background color */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checkbox is checked */
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}

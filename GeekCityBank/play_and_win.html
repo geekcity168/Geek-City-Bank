@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play and Win - Geek City Aviator</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<main>
+    <div class="container game-play">
+        <div class="title-container">
+            <h1>Geek City Aviator</h1>
+            <div id="score-display">
+                <h3>Score: <span id="score">0.000</span></h3>
+            </div>
+            <div class="deposit-inputs">
+                
+            </div>
+            <div class="play-inputs">
+                <div class="form-group">
+                    <label for="play-amount">Enter Amount to Play:</label>
+                    <input type="number" class="form-control" id="play-amount" placeholder="Enter amount">
+                </div>
+                <div class="form-group">
+                    <label for="auto-cashout">Auto Cash Out Time (seconds):</label>
+                    <input type="number" class="form-control" id="auto-cashout" placeholder="Enter time">
+                </div>
+
+                <br>
+                <div class="account">
+                    <label for="playAccount">Account Balance: Ksh.</label>
+                    <input type="number" id="playAccount" value="4500.00" readonly>
+                    <span id="cashWon">+0.00</span>
+                </div>
+
+            </div>
+
+            
+        </div>
+        <div class="play-container">
+            <canvas id="game-canvas" width="400" height="300"></canvas>
+
+        </div>
+        <div class="display-controls">
+            <div id="cash-out-message" style="display: none;">
+                <h4 id="cash-out"></h4>
+            </div>
+            <button class="btn btn-primary" id="play-btn" onclick="startGame()">Play</button>
+            <button class="btn btn-primary" id="cash-out-btn" onclick="cashOut()" style="display: none;">Cash Out</button>
+        </div>
+    </div>
+</main>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    var gameInterval;
+    var autoCashoutTime;
+    var winCounter = 0;
+
+    function startGame() {
+        document.getElementById("score").textContent = "0.000";
+
+        document.getElementById("cash-out-message").style.display = "none";
+        document.getElementById("cash-out-btn").style.display = "none";
+
+        var playAmount = parseFloat(document.getElementById("play-amount").value);
+        autoCashoutTime = parseInt(document.getElementById("auto-cashout").value);
+        var canvas = document.getElementById("game-canvas");
+        var ctx = canvas.getContext("2d");
+        var planeIcon = new Image();
+        planeIcon.src = "img/plane.png";
+        planeIcon.onload = function () {
+            ctx.drawImage(planeIcon, 0, canvas.height - 50, 50, 50);
+        };
+        var score = 0;
+        var posX = 0;
+        var posY = canvas.height - 50;
+        var startTime = new Date().getTime();
+
+        function update() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = (currentTime - startTime) / 1000; 
+            score = elapsedTime.toFixed(3); 
+            document.getElementById("score").textContent = score;
+            posX += 2;
+            posY -= 2;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(planeIcon, posX, posY, 50, 50);
+            if (posX >= canvas.width - 50 || posY <= 0 || elapsedTime >= autoCashoutTime) {
+                clearInterval(gameInterval);
+                if (elapsedTime < autoCashoutTime) {
+                    var cashOutAmount = score * playAmount;
+                    document.getElementById("cash-out").textContent = "You won! Cash out now!";
+                    document.getElementById("cashWon").textContent = "+" + cashOutAmount.toFixed(2);
+                    document.getElementById("playAccount").value = (parseFloat(document.getElementById("playAccount").value) + cashOutAmount).toFixed(2);
+                    if (++winCounter === 1) {
+                        document.getElementById("playAccount").style.color = "green";
+                    } else if (winCounter === 2) {
+                        document.getElementById("playAccount").style.color = "orange";
+                    } else if (winCounter > 2) {
+                        var exclusiveDiv = document.createElement("div");
+                        exclusiveDiv.textContent = "Exclusive";
+                        document.body.appendChild(exclusiveDiv);
+                    }
+                } else {
+                    document.getElementById("cash-out").textContent = "You lost! Plane flew away.";
+                    document.getElementById("cashWon").textContent = "-Loss";
+                    document.getElementById("cashWon").style.color = "red";
+                }
+                document.getElementById("cash-out-message").style.display = "block";
+                document.getElementById("cash-out-btn").style.display = "block";
+            }
+        }
+
+        gameInterval = setInterval(update, 1);
+    }
+
+    function cashOut() {
+        clearInterval(gameInterval);
+        var score = parseFloat(document.getElementById("score").textContent);
+        var playAmount = parseFloat(document.getElementById("play-amount").value);
+        var cashOutAmount = score * playAmount;
+        document.getElementById("cash-out").textContent = "Cash won: $" + cashOutAmount.toFixed(2);
+        document.getElementById("cashWon").textContent = "+" + cashOutAmount.toFixed(2);
+        document.getElementById("playAccount").value = (parseFloat(document.getElementById("playAccount").value) + cashOutAmount).toFixed(2);
+        if (++winCounter === 1) {
+            document.getElementById("playAccount").style.color = "green";
+        } else if (winCounter === 2) {
+            document.getElementById("playAccount").style.color = "orange";
+        } else if (winCounter > 2) {
+            var exclusiveDiv = document.createElement("div");
+            exclusiveDiv.textContent = "Exclusive";
+            exclusiveDiv.classList.add("fa", "fa-win");
+            document.body.appendChild(exclusiveDiv);
+        }
+        document.getElementById("cash-out-message").style.display = "block";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geek City Bank</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="js/script.css"></script>
+</head>
+<body>
+    <div class="bank-start">
+        <div class="bank-login">
+            <h1>Geek City Bank</h1>
+            <p>Welcome to Geek City Bank self-service. Click Get Started to continue</p>
+            <a href="signup.html">Register?</a>
+            <button class="start-button" onclick="getStarted()">Get Started &rarr;</button>
+            <div class="loading-container" style="display: none;">
+                <div class="loader"></div>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function redirect() {
+          window.location.href = "home.html";
+        }
+      
+        function getStarted() {
+          document.querySelector('.loading-container').style.display = 'block';
+          
+          const timeout = Math.floor(Math.random() * 6 + 10) * 1000;
+          setTimeout(redirect, timeout);
+        }
+      </script>
+      
+      
+</body>
+</html>
